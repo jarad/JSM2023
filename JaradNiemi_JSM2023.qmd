@@ -1,0 +1,232 @@
+---
+title: "Automatic Relevance Determination for Gaussian Processes with Functional Inputs"
+author: "Jarad Niemi and Luis Damiano"
+date: "2023-08-07"
+format: 
+  revealjs:
+    theme: serif
+    css: styles.css
+    embed-resources: true
+slide-number: true
+---
+
+```{r packages}
+library("tidyverse")
+library("knitr")
+```
+
+
+
+## Water Erosion Prediction Project (WEPP)
+
+![](fig/wepp)
+
+## WEPP Experiment - Profile
+
+![](fig/profile)
+
+## WEPP Experiment - Length and Slope
+
+![](fig/length_and_slope)
+
+## Scientific questions
+
+- Out-of-sample prediction accuracy
+    - Soil loss
+
+. . . 
+
+- Relative importance
+    - Profile
+        - Position
+    - Length
+    - Mean slope
+
+
+# Gaussian Process Emulators
+
+## Emulator
+
+Deterministic computer model
+
+$$Y = f(X)$$
+
+for
+
+- input $X$
+- output $Y$
+
+. . .
+
+An *emulator* is an estimate of $f$, i.e. $\widehat{f}$.
+
+## Gaussian Process
+
+For $f: \mathscr{X} \to \mathscr{Y}$, assume
+$$f \sim GP(\mu, k)$$
+
+. . .
+
+for 
+
+::: {.incremental}
+
+- mean function $\mu: \mathscr{X} \to \mathbb{R}$ and
+- covariance function $k: \mathscr{X} \times \mathscr{X} \to \mathbb{R}^{+}$.
+
+:::
+
+. . . 
+
+For simplicity, $\mu(x) = 0$.
+
+
+## Data
+
+For a collection of data $(Y_i, X_i)$ for $i=1,\ldots,n$, 
+we have 
+
+$$Y = (Y_1,\ldots,Y_n)^\top \sim N(0, \Sigma)$$
+
+. . .
+
+where
+
+$$\Sigma_{i,j} = k(x_i,x_j).$$
+
+. . .
+
+For prediction at a new location $\widetilde{x}$, 
+we have the conditional distribution $\widetilde{Y}|y$
+which involves covariances $k(x_i, \widetilde{x})$ for all $i$. 
+
+## Distance-based covariance kernel
+
+For any &Xscr;, let 
+$$k(x_i,x_j) = \sigma^2 e^{-d(x_i,x_j)/2}$$
+for spatial variance $\sigma^2$ and some distance function $d(x_i,x_j)$. 
+
+. . .
+
+For example,
+
+::: {.incremental}
+
+- squared exponential (Gaussian) covariance
+- automatic relevance determination
+- automatic dynamic relevance determination
+
+:::
+
+## Squared-exponential kernel
+
+If $x \in \mathbb{R}$, 
+
+. . .
+
+the *squared-exponential (Gaussian) covariance* kernel is 
+$$d(x_i,x_j) = w (x_i-x_j)^2$$
+
+. . . 
+
+where $w$ is the weight ($1/w$ is the length-scale/range).
+
+
+## Automatic relevance determination
+
+If $x \in \mathbb{R}^P$, 
+
+. . .
+
+the *automatic relevance determination* kernel is 
+$$d(x_i,x_j) = \sum_{p=1}^P w_p [x_{i,p}-x_{j,p}]^2$$
+
+. . .
+
+where $w_p$ controls the strength of the relationship in the $p$th dimension.
+
+
+## Automatic dynamic relevance determination
+
+If $x \in \mathscr{H}$ (Hilbert space), 
+the *automatic dynamic relevance determination* kernel is 
+$$d(x_i,x_j) = \int_\mathscr{T} w(t) [x_{i}(t)-x_{j}(t)]^2 dt$$
+
+. . .
+
+for some weight function $w: \mathscr{T} \to \mathbb{R}^+$. 
+
+. . .
+
+WLOG $\mathscr{T} = [0,1]$.
+
+
+# Automatic dynamic relevance determination (ADRD)
+
+## Asymmetric double exponential
+
+![](fig/alf)
+
+## Fourier expansion
+
+![](fig/few)
+
+## B-splines and hinges
+
+![](fig/bsplines)
+
+
+## Combined
+
+Combine hillslope profile, length, and mean slope into a single correlation
+function:
+
+![](fig/combined)
+
+
+
+# Results
+
+## Out-of-sample prediction accuracy
+
+![](fig/prediction_accuracy)
+
+## Profile, length, and slope relevance
+
+![](fig/estimated_relevance)
+
+**scaled-integrated weight**:
+
+![](fig/siw)
+
+## Hillslope profile relevance
+
+![](fig/estimated_weight_function)
+
+
+# Summary
+
+## Novelty
+
+Introduced
+
+- Automatic dynamic relevance determination
+- Variety of weight functions
+
+Results
+
+- Similar prediction accuracy
+- Informative relevance
+
+
+
+    
+## More information
+
+- Webpage: [jarad.me](http://jarad.me/)
+- [Slides](https://www.jarad.me/research/presentations/JaradNiemi_JSM2023.html)
+- Luis Damiano's [PhD Dissertation](https://dr.lib.iastate.edu/handle/20.500.12876/azJ4x0Gv)
+
+. . .
+
+### Thank you! {.center}
