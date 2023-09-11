@@ -81,7 +81,7 @@ for
 For simplicity, $\mu(x) = 0$.
 
 
-## Data
+## Data {visibility="hidden"}
 
 For a collection of data $(Y_i, X_i)$ for $i=1,\ldots,n$, 
 we have 
@@ -104,13 +104,7 @@ which involves covariances $k(x_i, \widetilde{x})$ for all $i$.
 
 For any &Xscr;, let 
 $$k(x_i,x_j) = \sigma^2 e^{-d(x_i,x_j)/2}$$
-for spatial variance $\sigma^2$ and some distance function $d(x_i,x_j)$. 
-
-. . .
-
-For example,
-
-::: {.incremental}
+for spatial variance $\sigma^2$ and some distance function $d(x_i,x_j)$:
 
 - squared exponential (Gaussian) covariance
 - automatic relevance determination
@@ -121,23 +115,13 @@ For example,
 ## Squared-exponential kernel
 
 If $x \in \mathbb{R}$, 
-
-. . .
-
 the *squared-exponential (Gaussian) covariance* kernel is 
 $$d(x_i,x_j) = w (x_i-x_j)^2$$
-
-. . . 
-
-where $w$ is the weight ($1/w$ is the length-scale/range).
 
 
 ## Automatic relevance determination
 
 If $x \in \mathbb{R}^P$, 
-
-. . .
-
 the *automatic relevance determination* kernel is 
 $$d(x_i,x_j) = \sum_{p=1}^P w_p [x_{i,p}-x_{j,p}]^2$$
 
@@ -158,7 +142,7 @@ for some weight function $w: \mathscr{T} \to \mathbb{R}^+$.
 
 . . .
 
-WLOG $\mathscr{T} = [0,1]$.
+WLOG: $\mathscr{T} = [0,1]$.
 
 
 # Automatic dynamic relevance determination (ADRD)
@@ -171,7 +155,7 @@ WLOG $\mathscr{T} = [0,1]$.
 
 ![](fig/few)
 
-## B-splines and hinges
+## B-splines and hinges {visibility="hidden"}
 
 ![](fig/bsplines)
 
